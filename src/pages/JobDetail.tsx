@@ -4,11 +4,16 @@ import { jobs } from "../data/jobs";
 import { BsBuildings } from "react-icons/bs";
 import { IoLocationOutline, IoTimeOutline } from "react-icons/io5";
 import { FaCheck, FaPlus } from "react-icons/fa";
+import useJobContext from "../components/hooks/useJobContext";
+import { IoMdCheckmark } from "react-icons/io";
 
 const JobDetail = (): React.JSX.Element => {
   const { jobId } = useParams();
+  const jobCtx = useJobContext();
 
   const currentJob = jobs?.find((job) => job.id === Number(jobId));
+
+  const isApplied = jobCtx?.appliedJobIds?.includes(jobId as string);
 
   return (
     <div className="max-w-3xl my-6 rounded-2xl overflow-hidden shadow-lg border border-gray-200 md:mt-40 w-full mx-auto">
@@ -71,8 +76,24 @@ const JobDetail = (): React.JSX.Element => {
               </div>
             </div>
           </div>
-          <button className="flex items-center justify-center gap-2 w-full bg-blue-700 hover:bg-blue-800 text-white py-3 rounded-lg transition-all my-2 cursor-pointer">
-            <FaPlus /> Apply Now
+          <button
+            className={`flex items-center justify-center gap-2 w-full bg-blue-700 text-white py-3 rounded-lg transition-all my-2  ${
+              isApplied
+                ? "bg-gray-500 cursor-not-allowed"
+                : "hover:bg-blue-800 cursor-pointer"
+            }`}
+            disabled={isApplied}
+            onClick={() => jobCtx?.applyToJob(jobId as string)}
+          >
+            {isApplied ? (
+              <>
+                <IoMdCheckmark size={20} /> Applied
+              </>
+            ) : (
+              <>
+                <FaPlus /> Apply Now
+              </>
+            )}
           </button>
           <button className="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-3 rounded-lg transition-all my-2 cursor-pointer">
             Back to Jobs
