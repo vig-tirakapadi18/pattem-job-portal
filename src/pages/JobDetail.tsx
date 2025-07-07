@@ -11,7 +11,7 @@ const JobDetail = (): React.JSX.Element => {
   const currentJob = jobs?.find((job) => job.id === Number(jobId));
 
   return (
-    <div className="max-w-3xl my-6 rounded-2xl overflow-hidden shadow-lg border border-gray-200 md:mt-40 mx-6">
+    <div className="max-w-3xl my-6 rounded-2xl overflow-hidden shadow-lg border border-gray-200 md:mt-40 w-full mx-auto">
       <div className="bg-gradient-to-r from-purple-700 to-fuchsia-600 p-6 text-white flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <div className="flex justify-between">
